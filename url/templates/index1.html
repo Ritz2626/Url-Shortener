@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <title>Url Shortener</title>
+    <style>
+        .box
+        {
+            border:1px solid black;
+            text-align:center;
+            margin-right:auto;
+    margin-left:auto;
+    padding:10px;
+    width:40%;
+    margin-top:6vw;
+    box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+	border-radius: 10px;
+	border: 6px solid #305A72;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size:2vw;
+    background: #FAFAFA;
+
+        }
+        h1
+        {
+            text-align:center;
+            font-size:2vw;
+        }
+        input{
+            font-size:2vw;
+        }
+        .button-1 {
+  background-color: #EA4C89;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-1:hover,
+.button-1:focus {
+  background-color: #F082AC;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>My CTO's URL Shortner</h1>
+    <div class="box">
+    <form id="post-form">
+        {% csrf_token %}
+        <label>Enter the url</label><br><br>
+        <input type="text" name="link" id="link"><br><br>
+        <input class="button-1" type="submit" id="shorten">
+        <h3>The link is:-</h3>
+</form>
+</div>
+<script type="text/javascript">
+    $(document).on('submit','#post-form',function(e){
+        e.preventDefault();
+
+      $.ajax({
+        type:'POST',
+        url:'/create',
+        data:{
+            link:$('#link').val(),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function(data)
+        {
+            $('h3').html("localhost:8000/"+data)
+        }
+      });
+    });
+</script>
+    </body>
+</html>
+
+<!-- HTML !-->
+
+
+
